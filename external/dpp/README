@@ -1,0 +1,42 @@
+DSP Process Platform (DPP) module directory description:
+
+DPP    : DSP Process Platform
+DPI    : DSP Process Interface
+HAL    : Hardware Abstract Layer
+OSAL   : Operation System Abstract Layer
+
+Rules:
+1. header file arrange rule
+a. inc directory in each module folder is for external module usage.
+b. module internal header file should be put along with the implement file.
+c. header file should not contain any relative path or absolute path, all include path should be keep in Makefile.
+2. compiling system rule
+a. build final binary and library will be install to out/ directory.
+3. header file include order
+a. MODULE_TAG
+b. system header
+c. module header
+
+NOTE:
+1. when run on window pthreadVC2.dll needed to be copied to the system directory.
+
+----                             top
+   |
+   |----- inc                    header file for external usage, including platform header and dpi header
+   |
+   |----- dpp                    DSP Process Platform : dpi function private implement and dpp infrastructure
+   |
+   |----- test                   dpp component unit test and dpi demo
+   |
+   |----- out                    final release binary output directory
+   |  |
+   |  |----- inc                 header file output directory
+   |  |
+   |  |----- lib                 library file output directory
+   |
+   |----- osal                   Operation System Abstract Layer: abstract layer for different operation system
+   |  |
+   |  |----- linux               mainline linux kernel
+   |
+   |----- utils                  small util functions
+

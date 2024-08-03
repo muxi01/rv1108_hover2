@@ -1,0 +1,36 @@
+# /etc/profile: system-wide .profile file for the Bourne shells
+
+echo
+echo -n "Processing /etc/profile... "
+# Set search library path
+export LD_LIBRARY_PATH=/lib:/usr/lib
+
+# set user path
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+#qt and ts
+export TSLIB_ROOT=/usr
+export QT_ROOT=/usr/qt531
+export TSLIB_TSDEVICE=/dev/input/event2
+export TSLIB_CALIBFILE=/data/pointercal
+export TSLIB_CONFFILE=/usr/etc/ts.conf
+export TSLIB_PLUGINDIR=/usr/lib/ts
+export TSLIB_CONSOLEDEVICE=none
+export TSLIB_FBDEVICE=/dev/fb0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TSLIB_ROOT/lib
+export QWS_MOUSE_PROTO=tslib:/dev/input/event2
+export LD_LIBRARY_PATH=$QT_ROOT/lib:$LD_LIBARAY_PATH
+export QT_QPA_PLATFORM_PLUGIN_PATH=$QT_ROOT/plugins
+export QT_QPA_PLATFORM=linuxfb:tty=/dev/fb0
+export QT_QPA_FONTDIR=$QT_ROOT/lib/fonts
+#export LD_PRELOAD=/usr/lib/preloadable_libiconv.so:$TSLIB_ROOT/lib/libts.so
+export QT_QPA_GENERIC_PLUGINS=tslib
+
+#Set PS1
+PS1='[\u@\h\W]\$'
+#export PS1="\\e[05;32m[$USER@\\w\\a]\\$\\e[00;34m"
+PATH=$PATH
+echo "Set local script:/usr/etc/rc.local...."
+source /usr/etc/rc.local
+echo "Done"
+echo

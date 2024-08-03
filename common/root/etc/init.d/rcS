@@ -1,0 +1,69 @@
+#! /bin/sh
+
+#/bin/mknod /dev/console c 5 1
+/bin/mount -a
+#/bin/mount -t proc /proc/ /proc/
+
+# devpts doesn't mount since mounting /dev wipes /dev/pts
+mkdir /dev/pts
+date
+echo "S: devpts"
+mount -t devpts none /dev/pts
+
+# Udev seems to throw a warning if /dev/null is not found
+mknod /dev/null c 1 3
+
+# Set hostname if the corresponding file is found
+if test -e /etc/hostname; then
+    hostname -F /etc/hostname
+fi
+
+#"----------mount /sys as sysfs"
+#/bin/mount -t tmpfs mdev /dev 
+#/bin/mount -t sysfs sysfs /sys
+echo "----------Starting mdev......"
+/bin/echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+#/bin/mount /dev/mmcblk0p14 /usr/local
+/bin/mount /dev/mmcblk0p10 /catch
+/bin/mount /dev/mmcblk0p11 /data
+
+ln -s /lib /usr/lib
+
+mkdir /var/run
+mkdir /var/lib
+mkdir /var/lib/misc
+
+chmod 731 /usr/local -R
+
+echo 1 > /sys/module/rockchip_pm/parameters/policy
+
+#mount /dev/mmcblk0p1 /mnt/sdcard/
+#./usr/local/bin/video > /mnt/sdcard/$(date "+%Y%m%d_%H%M%S")".log" 2>&1 &
+
+# DSP firmware load helper
+echo 1 > /sys/class/firmware/rkdsp.bin/loading
+cat /system/etc/firmware/rkdsp.bin > /sys/class/firmware/rkdsp.bin/data
+echo 0 > /sys/class/firmware/rkdsp.bin/loading
+
+# Wlan power on
+echo 1 > /sys/class/rkwifi/driver
+./usr/local/bin/wlan_service &
+
+#echo "S: /mnt/udisk"
+#10M
+#mount -t ramfs none /mnt/udisk -o maxsize=10000
+
+# Mount debugfs
+mount -t debugfs none /sys/kernel/debug
+./usr/local/bin/video &
+
+#source /etc/init.d/run_adbd.sh
+
+#touch /var/lib/misc/udhcpd.leases
+#echo 1 > sys/class/rkwifi/driver
+#boa
+#/usr/sbin/fbinit 4 2
+#echo "/usr/etc/firmware/fw_bcm4339a0_ag.bin" > /sys/module/bcmdhd/parameters/firmware_path
+#wpa_supplicant -D wext -c /etc/wpa_supplicant.config -i wlan0 -B
+#/sbin/udhcpc -i wlan0 &

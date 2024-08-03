@@ -1,0 +1,7 @@
+/* Generated automatically. */
+static const char configuration_arguments[] = "./configure --prefix=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr --sysconfdir=/cvr/toolchain/buildroot-2016.05-rc2/output/host/etc --enable-static --target=arm-rkcvr-linux-uclibcgnueabihf --with-sysroot=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr/arm-rkcvr-linux-uclibcgnueabihf/sysroot --disable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --with-gmp=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr --with-mpfr=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr --with-pkgversion='Buildroot 2016.05-rc2' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --disable-libsanitizer --enable-tls --disable-libmudflap --enable-threads --with-mpc=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr --without-isl --without-cloog --disable-decimal-float --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++ --with-build-time-tools=/cvr/toolchain/buildroot-2016.05-rc2/output/host/usr/arm-rkcvr-linux-uclibcgnueabihf/bin --enable-shared --disable-libgomp";
+static const char thread_model[] = "posix";
+
+static const struct {
+  const char *name, *value;
+} configure_default_options[] = { { "abi", "aapcs-linux" }, { "cpu", "cortex-a7" }, { "float", "hard" }, { "mode", "arm" }, { "fpu", "neon-vfpv4" }, { "tls", "gnu" } };
